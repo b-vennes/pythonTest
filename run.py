@@ -6,20 +6,20 @@ SECRET_KEY = 'a secret key'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-greetings = ["Hello! ", "Hi! ", "Hey! "]
-
-questions = ["How are you? ", "What's up? ", "How's it going? "]
-
 @app.route("/", methods=['GET', 'POST'])
 def replyMethod():
+
+    greetings = ['Hello! ', 'Hi! ', 'Hey! ']
+
+    questions = ['How are you? ', 'Whats up? ', 'Hows it going? ', 'Wanna buy a book? ']
 
     resp = twilio.twiml.Response()
 
     greeting = random.choice(greetings)
 
-    question = message + random.choice(questions)
+    question = random.choice(questions)
 
-    message = greeting + question
+    message = greeting + 'Im Tricia! ' + question
 
     resp.sms(message)
 
@@ -27,4 +27,3 @@ def replyMethod():
 
 if __name__ == "__main__":
     app.run()
-    
