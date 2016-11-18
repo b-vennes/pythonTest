@@ -15,7 +15,7 @@ callers = {
 def hello_monkey():
 
     resp = twilio.twiml.Response()
-    resp.message("Hello, Thanks for Texting!")
+    resp.message("Hi Cole")
     return str(resp)
 
 if __name__ == "__main__":
