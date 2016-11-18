@@ -1,39 +1,27 @@
 from flask import Flask, request, redirect, session
-import twilio.twiml
+import twilio.twiml, random
 
 # The session object makes use of a secret key.
 SECRET_KEY = 'a secret key'
 app = Flask(__name__)
 app.config.from_object(__name__)
 
-# Try adding your own number to this list!
-callers = {
-    "+15032770678": "Branden",
-    "+12065560687": "Cole French",
-}
-
 @app.route("/", methods=['GET', 'POST'])
-def reply():
+def replyMethod():
 
-    """Respond with the number of text messages sent between two parties."""
+    # Will eventually check message for ISBN
 
-    counter = session.get('counter', 0)
-
-    # increment the counter
-    counter += 1
-
-    # Save the new counter value in the session
-    session['counter'] = counter
-
-    from_number = request.values.get('From')
-    if from_number in callers:
-        name = callers[from_number]
-    else:
-        name = "Dude"
-
-    message = "".join([name, " has messaged ", request.values.get('To'), " ",
-        str(counter), " times."])
     resp = twilio.twiml.Response()
+
+    randomInt = random.randrange(0, 2)
+
+    if (randomInt == 0):
+        message = "Hi! Thanks for messaging Tricia! What can I do for you?"
+    elif (randomInt == 1):
+        message = "Hi! Thanks for texting! Have a great day!"
+    elif (randomInt == 2):
+        message = "Howdy! Tricia here!"
+
     resp.sms(message)
 
     return str(resp)
