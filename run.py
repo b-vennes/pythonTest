@@ -13,28 +13,10 @@ callers = {
 
 @app.route("/", methods=['GET', 'POST'])
 def hello_monkey():
-    """Respond with the number of text messages sent between two parties."""
 
-    counter = session.get('counter', 0)
-
-    # increment the counter
-    counter += 1
-
-    # Save the new counter value in the session
-    session['counter'] = counter
-
-    from_number = request.values.get('From')
-    if from_number in callers:
-        name = callers[from_number]
-    else:
-        name = "Monkey"
-
-    message = "".join([name, " has messaged ", request.values.get('To'), " ",
-        str(counter), " times."])
     resp = twilio.twiml.Response()
-    resp.sms(message)
-
+    resp.message("Hello, Thanks for Texting!")
     return str(resp)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
